@@ -22,6 +22,8 @@ services:
       - 9200:9200
     networks:
       - elastic
+    restart: 
+      - unless-stopped
 
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
@@ -43,6 +45,8 @@ services:
       - data02:/usr/share/elasticsearch/data
     networks:
       - elastic
+    restart: 
+      - unless-stopped
 
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
@@ -64,6 +68,8 @@ services:
       - data03:/usr/share/elasticsearch/data
     networks:
       - elastic
+    restart: 
+      - unless-stopped
 
   kib01:
     image: docker.elastic.co/kibana/kibana-oss:7.10.2
@@ -75,6 +81,8 @@ services:
       ELASTICSEARCH_HOSTS: '["http://es01:9200","http://es02:9200","http://es03:9200"]'
     networks:
       - elastic
+    restart: 
+      - unless-stopped
 
   syslog01:
     image: balabit/syslog-ng:latest
@@ -87,6 +95,8 @@ services:
       - "./syslog-ng/config/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"
     networks:
       - elastic
+    restart: 
+      - unless-stopped
 
 volumes:
   data01:

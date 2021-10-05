@@ -93,6 +93,13 @@ services:
       - elastic
     restart: unless-stopped
 
+  curator:
+    build: ./curator
+    container_name: elastic_curator
+    networks:
+      - elastic
+    restart: unless-stopped
+
 volumes:
   data01:
     driver: local

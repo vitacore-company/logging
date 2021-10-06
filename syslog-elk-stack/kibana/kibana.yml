@@ -1,0 +1,6 @@
+﻿server:
+  name: kibana
+  host: "0"
+logging:
+  root:
+    level: error

@@ -8,9 +8,6 @@ services:
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es02,es03
       - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
-      - logger.level=ERROR
     ulimits:
       memlock:
         soft: -1
@@ -31,9 +28,6 @@ services:
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es03
       - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
-      - logger.level=ERROR
     ulimits:
       memlock:
         soft: -1
@@ -52,9 +46,6 @@ services:
       - cluster.name=es-docker-cluster
       - discovery.seed_hosts=es01,es02
       - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
-      - logger.level=ERROR
     ulimits:
       memlock:
         soft: -1
@@ -71,19 +62,16 @@ services:
     ports:
       - 5601:5601
     environment:
-      LOGGING_SILENT: true
       ELASTICSEARCH_URL: http://es01:9200
       ELASTICSEARCH_HOSTS: '["http://es01:9200","http://es02:9200","http://es03:9200"]'
     networks:
       - elastic
     restart: unless-stopped
-    volumes:
-      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
 
   syslog01:
     image: balabit/syslog-ng:latest
     container_name: syslog01
-    command: --no-caps
+    command: --no-caps -edv
     ports:
       - "514:514/udp"
       - "601:601"
